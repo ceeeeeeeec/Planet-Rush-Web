@@ -6,15 +6,16 @@
 <meta name="theme-color" content="#050914">
 <title>Planet Rush</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#050914;color:#eef6ff;font-family:Inter,system-ui,-apple-system,sans-serif}body{overflow:hidden}
-#app{width:100%;height:100%}.screen{width:min(100%,760px);height:100%;margin:auto;display:flex;flex-direction:column;background:#07101d}
-.menu{height:100%;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 50% 28%,#183552 0,#0a1727 38%,#050914 78%)}.menu-card{text-align:center;width:min(440px,100%)}.logo{font-size:clamp(38px,9vw,64px);font-weight:900;letter-spacing:.06em;margin:0}.subtitle{color:#8297ae;margin:8px 0 34px;letter-spacing:.18em;font-size:11px}.play{width:100%;height:58px;border:1px solid #55cfff;border-radius:12px;background:#12324a;color:#fff;font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 0 28px #2bc4ff20}.version{margin-top:18px;color:#52677e;font-size:11px}
-.top{height:70px;display:flex;align-items:center;justify-content:space-around;border-bottom:1px solid #1c2b3c;background:#0a1523;flex-shrink:0}.stat{text-align:center;min-width:90px}.stat span{display:block;font-size:9px;letter-spacing:.15em;color:#687d93;margin-bottom:4px}.stat b{font-size:17px}.gold{color:#ffd166}
-.field{position:relative;flex:1;overflow:hidden;touch-action:none;background:radial-gradient(circle at 50% 5%,#18334d 0,#091524 35%,#030711 82%)}.stars{position:absolute;inset:0;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:73px 71px;opacity:.11}
-.planet{position:absolute;left:8%;right:8%;top:7%;bottom:0;border-radius:44px 44px 0 0;overflow:hidden;background:linear-gradient(#182b3c,#0d1825);border:1px solid #263c51}.blocks{position:absolute;inset:0}.block{position:absolute;border-radius:4px;background:linear-gradient(145deg,#697d91,#354659);box-shadow:inset 0 1px #ffffff20,0 1px 2px #0008;transition:opacity .12s,transform .12s}.block.special{background:linear-gradient(145deg,#ffe08a,#c58a17);box-shadow:0 0 12px #ffd16635}.block.hit{transform:scale(.82);opacity:.2}
-.drill{position:absolute;z-index:5;width:66px;height:66px;transform:translate(-50%,-50%);border-radius:50%;border:3px solid #dffaff;background:radial-gradient(circle,#f6ffff 0 15%,#72ddff 16% 34%,#147697 35% 57%,#081a27 58%);box-shadow:0 0 24px #52d7ff88;pointer-events:none}.drill:after{content:"";position:absolute;left:50%;top:100%;width:3px;height:90px;transform:translateX(-50%);background:linear-gradient(#54d7ff99,transparent)}
-.message{position:absolute;left:0;right:0;top:18px;text-align:center;color:#91a6bb;font-size:10px;letter-spacing:.16em;pointer-events:none}.controls{height:76px;display:flex;gap:10px;padding:12px;background:#0a1523;border-top:1px solid #1c2b3c;flex-shrink:0}.controls button{flex:1;border:1px solid #2a4055;border-radius:10px;background:#122236;color:#eaf5ff;font-weight:800;cursor:pointer}.controls button.on{border-color:#4dd4ff;color:#70ddff}
-@media(max-width:520px){.top{height:62px}.planet{left:3%;right:3%}.controls{height:68px;padding:9px}}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#030711;color:#edf6ff;font-family:Inter,system-ui,-apple-system,sans-serif}body{overflow:hidden}
+#app{width:100%;height:100%}.screen{width:min(100%,820px);height:100%;margin:auto;display:flex;flex-direction:column;background:#07101d}
+.menu{height:100%;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 50% 27%,#1a3a55 0,#0b1929 38%,#030711 82%)}.menu-card{width:min(470px,100%);text-align:center}.logo{font-size:clamp(42px,10vw,72px);font-weight:950;letter-spacing:.07em;margin:0}.logo span{color:#65d9ff}.subtitle{color:#8095ab;margin:10px 0 38px;letter-spacing:.22em;font-size:10px}.menu-actions{display:grid;gap:10px}.play,.menu-btn,.upgrade-btn{min-height:54px;border-radius:11px;border:1px solid #2d465d;background:#112236;color:#eef7ff;font-weight:850;cursor:pointer}.play{background:#123952;border-color:#58d5ff;box-shadow:0 0 25px #38c8ff20;font-size:17px}.menu-btn:disabled{opacity:.45;cursor:default}.version{margin-top:18px;color:#52677e;font-size:10px;letter-spacing:.1em}
+.top{height:70px;display:flex;align-items:center;justify-content:space-around;border-bottom:1px solid #1b2b3c;background:#091521;flex-shrink:0}.stat{text-align:center;min-width:80px}.stat span{display:block;font-size:9px;letter-spacing:.15em;color:#687d93;margin-bottom:4px}.stat b{font-size:17px}.gold{color:#ffd166}.top .planet-name{color:#8fa5ba;font-size:10px}
+.field{position:relative;flex:1;overflow:hidden;touch-action:none;background:radial-gradient(circle at 50% 7%,#17334c 0,#091524 34%,#020610 84%)}.stars{position:absolute;inset:0;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:71px 69px;opacity:.13}.planet{position:absolute;left:6%;right:6%;top:8%;bottom:-4%;border-radius:50% 50% 0 0/18% 18% 0 0;background:linear-gradient(180deg,#26394a,#172636 48%,#0c1723);border:1px solid #334b60;box-shadow:0 -10px 45px #24465a22}.planet:before{content:"";position:absolute;left:5%;right:5%;top:3%;height:10px;border-radius:50%;background:#39566b66}.blocks{position:absolute;inset:5% 3% 0;overflow:hidden}.block{position:absolute;border-radius:5px;background:linear-gradient(145deg,#7c8fa1,#394b5d);box-shadow:inset 0 1px #ffffff22,0 2px 3px #0008;transition:opacity .15s,transform .15s}.block.special{background:linear-gradient(145deg,#ffe89d,#c68a19);box-shadow:0 0 14px #ffd16644}.block.rare{background:linear-gradient(145deg,#a78bfa,#6040a1);box-shadow:0 0 14px #9b7cff44}.block.hit{transform:scale(.65);opacity:0}
+.ship{position:absolute;z-index:8;width:76px;height:50px;transform:translate(-50%,-50%);pointer-events:none;transition:left .13s linear,top .13s linear}.ship-body{position:absolute;left:8px;right:8px;top:8px;height:34px;border-radius:50% 50% 40% 40%;background:linear-gradient(#dffaff,#5fb7d2 48%,#17495f);border:2px solid #dffaff;box-shadow:0 0 20px #4bd6ff77}.ship-core{position:absolute;left:29px;top:16px;width:18px;height:18px;border-radius:50%;background:#f7ffff;box-shadow:0 0 10px #fff}.ship-fin{position:absolute;bottom:1px;width:16px;height:15px;background:#174154;border:1px solid #63bfd9}.ship-fin.left{left:8px;transform:skewY(25deg)}.ship-fin.right{right:8px;transform:skewY(-25deg)}.beam{position:absolute;z-index:7;width:3px;transform-origin:top center;background:linear-gradient(#bdf5ff,#42caff00);pointer-events:none;opacity:0}.beam.active{opacity:1}.burst{position:absolute;z-index:9;width:34px;height:34px;border-radius:50%;border:2px solid #dffaff;pointer-events:none;animation:burst .28s ease-out forwards}@keyframes burst{to{transform:scale(2.4);opacity:0}}
+.hud{position:absolute;z-index:10;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;pointer-events:none}.pill{padding:7px 10px;border:1px solid #30465a;border-radius:8px;background:#07111dcc;color:#9eb2c5;font-size:9px;letter-spacing:.08em}.message{position:absolute;left:0;right:0;top:15px;text-align:center;color:#8398ac;font-size:9px;letter-spacing:.16em;pointer-events:none}
+.controls{height:78px;display:flex;gap:9px;padding:12px;background:#091521;border-top:1px solid #1b2b3c;flex-shrink:0}.controls button{flex:1;min-width:0;border:1px solid #294055;border-radius:10px;background:#112235;color:#eaf4ff;font-weight:800;cursor:pointer}.controls button.active{border-color:#58d5ff;color:#6bdcff}.controls button.primary{border-color:#58d5ff;background:#12364d}
+.panel{height:100%;overflow:auto;padding:22px;background:radial-gradient(circle at 50% 15%,#17324a 0,#081321 42%,#030711 90%)}.panel-inner{width:min(650px,100%);margin:auto}.back{border:0;background:none;color:#83a0b8;cursor:pointer;font-weight:700;padding:8px 0}.panel h2{font-size:30px;margin:10px 0 4px}.panel-sub{color:#7890a5;font-size:12px;margin-bottom:22px}.upgrade-list{display:grid;gap:10px}.upgrade{padding:15px;border:1px solid #263b50;border-radius:12px;background:#0b1826}.upgrade-head{display:flex;justify-content:space-between;gap:10px}.upgrade-name{font-weight:850}.level{color:#ffd166;font-size:11px}.upgrade p{margin:7px 0 12px;color:#8197ab;font-size:11px;line-height:1.4}.upgrade-btn{min-height:40px;width:100%;font-size:12px}.upgrade-btn:disabled{opacity:.45;cursor:default}
+@media(max-width:520px){.top{height:62px}.planet{left:2%;right:2%}.controls{height:70px;padding:9px}.controls button{font-size:11px}.panel{padding:16px}}
 </style>
 </head>
 <body>
@@ -23,35 +24,54 @@
 (function(){
 "use strict";
 var app=document.getElementById("app");
-var state={screen:"menu",credits:0,mined:0,auto:true,x:.5,y:.15,blocks:[],last:0};
-var COLS=10,ROWS=19;
+var state={screen:"menu",planet:1,credits:0,mined:0,x:.5,y:.10,target:null,auto:true,damage:1,speed:1,magnet:1,blocks:[],lastMine:0};
+var COLS=10,ROWS=20,runTimer=0;
 function makeBlocks(){
  var a=[];
- for(var y=1;y<ROWS;y++) for(var x=0;x<COLS;x++) if(Math.random()>.07)
-   a.push({x:x,y:y,special:Math.random()<.06});
+ for(var y=1;y<ROWS;y++) for(var x=0;x<COLS;x++){
+   if(Math.random()<.075) continue;
+   var roll=Math.random();
+   a.push({x:x,y:y,special:roll<.055,rare:roll>=.055&&roll<.085,hp:roll<.055?3:roll<.085?2:1});
+ }
  return a;
 }
 function menu(){
- app.innerHTML='<div class="screen menu"><div class="menu-card"><h1 class="logo">PLANET RUSH</h1><div class="subtitle">AUTONOMOUS PLANET MINING</div><button class="play" id="play">PLAY</button><div class="version">WEB PROTOTYPE</div></div></div>';
- document.getElementById("play").onclick=function(){state.screen="game";state.blocks=makeBlocks();render();};
+ app.innerHTML='<div class="screen menu"><div class="menu-card"><h1 class="logo">PLANET <span>RUSH</span></h1><div class="subtitle">AUTONOMOUS DEEP-SPACE MINING</div><div class="menu-actions"><button class="play" id="play">START RUN</button><button class="menu-btn" id="upgrades">GARAGE & UPGRADES</button><button class="menu-btn" id="continue" disabled>CONTINUE RUN</button></div><div class="version">WEB VERTICAL SLICE • PLANET '+state.planet+'</div></div></div>';
+ document.getElementById("play").onclick=startRun;
+ document.getElementById("upgrades").onclick=garage;
+}
+function startRun(){
+ state.screen="game";state.blocks=makeBlocks();state.x=.5;state.y=.08;state.target=null;state.lastMine=0;render();
+}
+function garage(){
+ state.screen="garage";render();
+}
+function garage(){
+ app.innerHTML='<div class="screen"><div class="panel"><div class="panel-inner"><button class="back" id="back">← BACK</button><h2>GARAGE</h2><div class="panel-sub">Spend credits to permanently improve your mining ship.</div><div class="upgrade-list">'+upgradeCard("damage","Drill Power",state.damage,"More damage per mining pass.","Damage: "+state.damage,10*state.damage)+" "+upgradeCard("speed","Mining Speed",state.speed,"Shorter delay between mining passes.","Cycle: "+state.speed+"×",15*state.speed)+" "+upgradeCard("magnet","Resource Core",state.magnet,"Increases the value collected from blocks.","Value: "+state.magnet+"×",20*state.magnet)+'</div></div></div></div>';
+ document.getElementById("back").onclick=function(){state.screen="menu";render()};
+ ["damage","speed","magnet"].forEach(function(k){var b=document.getElementById("buy-"+k);if(b)b.onclick=function(){var cost=Number(b.dataset.cost);if(state.credits>=cost){state.credits-=cost;state[k]++;garage()}}});
+}
+function upgradeCard(k,name,level,desc,value,cost){
+ return '<div class="upgrade"><div class="upgrade-head"><div class="upgrade-name">'+name+'</div><div class="level">LV '+level+'</div></div><p>'+desc+' '+value+'.</p><button class="upgrade-btn" id="buy-'+k+'" data-cost="'+cost+'" '+(state.credits<cost?"disabled":"")+'>UPGRADE • '+cost+' CREDITS</button></div>';
 }
 function render(){
- if(state.screen==="menu"){menu();return;}
- app.innerHTML='<div class="screen"><header class="top"><div class="stat"><span>PLANET</span><b>01</b></div><div class="stat"><span>CREDITS</span><b class="gold">'+state.credits.toLocaleString()+'</b></div><div class="stat"><span>MINED</span><b>'+state.mined+'</b></div></header><main class="field" id="field"><div class="stars"></div><div class="planet"><div class="blocks">'+state.blocks.map(function(b){return '<div class="block '+(b.special?"special":"")+'" style="left:'+(b.x/COLS*100)+'%;top:'+(b.y/ROWS*100)+'%;width:'+(100/COLS-.7)+'%;height:'+(100/ROWS-.7)+'%"></div>';}).join("")+'</div></div><div class="drill" id="drill"></div><div class="message">DRAG TO STEER • AUTO MINING '+(state.auto?"ON":"OFF")+'</div></main><footer class="controls"><button id="auto" class="'+(state.auto?"on":"")+'">AUTO MINING</button><button id="new">NEW PLANET</button><button id="menu">MENU</button></footer></div>';
- var field=document.getElementById("field"),drill=document.getElementById("drill");
- function place(){drill.style.left=(state.x*100)+"%";drill.style.top=(8+state.y*88)+"%";}
+ if(state.screen==="menu"){menu();return}
+ if(state.screen==="garage"){garage();return}
+ app.innerHTML='<div class="screen"><header class="top"><div class="stat"><span>PLANET</span><b>'+state.planet+'</b></div><div class="stat"><span>CREDITS</span><b class="gold">'+state.credits.toLocaleString()+'</b></div><div class="stat"><span>MINED</span><b>'+state.mined+'</b></div><div class="stat"><span>DRILL</span><b>'+state.damage+'×</b></div></header><main class="field" id="field"><div class="stars"></div><div class="planet"><div class="blocks" id="blocks">'+state.blocks.map(function(b,i){return '<div class="block '+(b.special?"special ": "")+(b.rare?"rare ":"")+'" data-i="'+i+'" style="left:'+(b.x/COLS*100)+'%;top:'+(b.y/ROWS*100)+'%;width:'+(100/COLS-.8)+'%;height:'+(100/ROWS-.8)+'%"></div>';}).join("")+'</div></div><div class="beam" id="beam"></div><div class="ship" id="ship"><div class="ship-body"></div><div class="ship-core"></div><div class="ship-fin left"></div><div class="ship-fin right"></div></div><div class="message">'+(state.auto?"AUTO MINING":"MANUAL TARGETING")+' • DRAG TO STEER</div><div class="hud"><div class="pill">POWER '+state.damage+'×</div><div class="pill">SPEED '+state.speed+'×</div></div></main><footer class="controls"><button id="auto" class="'+(state.auto?"active":"")+'">AUTO</button><button id="boost" class="primary">MINE NOW</button><button id="garage">GARAGE</button><button id="menu">MENU</button></footer></div>';
+ var field=document.getElementById("field"),ship=document.getElementById("ship"),beam=document.getElementById("beam");
+ function place(){ship.style.left=(state.x*100)+"%";ship.style.top=(8+state.y*88)+"%";}
  place();
  var dragging=false;
  field.onpointerdown=function(e){dragging=true;field.setPointerCapture&&field.setPointerCapture(e.pointerId);move(e)};
- field.onpointermove=move;
- field.onpointerup=field.onpointercancel=function(){dragging=false};
- function move(e){if(!dragging)return;var r=field.getBoundingClientRect();state.x=Math.max(.08,Math.min(.92,(e.clientX-r.left)/r.width));state.y=Math.max(.03,Math.min(.88,(e.clientY-r.top)/r.height));place();}
+ field.onpointermove=move;field.onpointerup=field.onpointercancel=function(){dragging=false};
+ function move(e){if(!dragging)return;var r=field.getBoundingClientRect();state.x=Math.max(.08,Math.min(.92,(e.clientX-r.left)/r.width));state.y=Math.max(.02,Math.min(.90,(e.clientY-r.top)/r.height));place();}
  document.getElementById("auto").onclick=function(){state.auto=!state.auto;render()};
- document.getElementById("new").onclick=function(){state.blocks=makeBlocks();render()};
+ document.getElementById("boost").onclick=function(){mine(true)};
+ document.getElementById("garage").onclick=garage;
  document.getElementById("menu").onclick=function(){state.screen="menu";render()};
 }
-function mine(){
- if(state.screen!=="game"||!state.auto||!state.blocks.length)return;
+function mine(manual){
+ if(state.screen!=="game"||!state.blocks.length)return;
  var best=-1,score=Infinity;
  for(var i=0;i<state.blocks.length;i++){
    var b=state.blocks[i],bx=(b.x+.5)/COLS,by=(b.y+.5)/ROWS;
@@ -59,13 +79,29 @@ function mine(){
    if(s<score){score=s;best=i;}
  }
  if(best<0)return;
- var b=state.blocks.splice(best,1)[0];
- state.credits+=b.special?25:5;state.mined++;
+ var b=state.blocks[best];
+ state.target=best;
+ state.x=Math.max(.08,Math.min(.92,(b.x+.5)/COLS));
+ state.y=Math.max(.04,Math.min(.90,(b.y+.5)/ROWS));
+ var gain=(b.special?25:b.rare?12:5)*state.magnet;
+ b.hp-=state.damage;
  render();
- if(!state.blocks.length){setTimeout(function(){if(state.screen==="game"){state.blocks=makeBlocks();render();}},900);}
+ if(b.hp<=0){
+   state.blocks.splice(best,1);state.credits+=gain;state.mined++;
+   render();
+   if(state.blocks.length===0){setTimeout(nextPlanet,500);}
+ }
+}
+function nextPlanet(){
+ if(state.screen!=="game")return;
+ state.planet++;state.blocks=makeBlocks();state.x=.5;state.y=.08;state.target=null;render();
 }
 menu();
-setInterval(function(){if(state.auto&&Date.now()-state.last>650){state.last=Date.now();mine();}},100);
+setInterval(function(){
+ if(state.screen==="game"&&state.auto&&Date.now()-state.lastMine>Math.max(220,650/state.speed)){
+   state.lastMine=Date.now();mine(false);
+ }
+},100);
 })();
 </script>
 </body>
