@@ -1,4 +1,3 @@
-import "./style.css";
 const COLS=11,ROWS=22,GAP=3;
 const state={credits:0,mined:0,drillX:.5,auto:true,blocks:[],lastMine:0};
 function generatePlanet(){const a=[];for(let y=2;y<ROWS;y++)for(let x=0;x<COLS;x++)if(Math.random()>.1)a.push({x,y,special:Math.random()<.055});return a}
