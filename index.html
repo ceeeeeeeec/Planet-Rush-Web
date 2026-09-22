@@ -20,14 +20,14 @@
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app"><div class="boot" id="fallbackBoot"><div class="boot-card"><h1 class="boot-logo">PLANET <span>RUSH</span></h1><div class="boot-kicker">MINING NETWORK INITIALISATION</div><div class="boot-status">STARTING GAME SYSTEMS</div><div class="boot-track"><div class="boot-fill" style="width:8%"></div></div><div class="boot-percent">8%</div></div></div></div>
 <script>
 (function(){
 "use strict";
 var app=document.getElementById("app");
 var state={screen:"game",planet:1,credits:0,mined:0,x:.5,y:.10,target:null,damage:1,speed:1,magnet:1,basePower:1,prestige:0,blocks:[],lastMine:0,vx:0,vy:0,currentWeapon:"lance",overlay:null,booting:true};
 var WEAPONS={lance:{name:"Drill Lance",type:"beam",damage:1,cooldown:650,desc:"Focused beam. Reliable and precise."},pulse:{name:"Pulse Cannon",type:"projectile",damage:2,cooldown:950,desc:"Fast energy bolt with heavier impact."},blast:{name:"Blast Charge",type:"blast",damage:1,cooldown:1300,splash:1.7,desc:"Explodes on impact and damages nearby blocks."}};
-var BUILD="0.4";
+var BUILD="0.4.1";
 var COLS=10,ROWS=20,runTimer=0;
 function makeBlocks(){
  var a=[];
@@ -150,8 +150,7 @@ function nextPlanet(){
  if(state.screen!=="game")return;
  state.planet++;state.blocks=makeBlocks();state.x=.5;state.y=.08;state.target=null;render();
 }
-startRun();
-setTimeout(runBootSequence,40);
+try{startRun();setTimeout(runBootSequence,40);}catch(err){var fb=document.getElementById("fallbackBoot");if(fb){var msg=String(err&&err.message||err).replace(/[<>&"]/g,"");fb.innerHTML='<div class="boot-card"><h1 class="boot-logo">PLANET <span>RUSH</span></h1><div class="boot-kicker">STARTUP ERROR</div><div class="boot-status">RECOVERY REQUIRED • '+msg+'</div><div class="boot-track"><div class="boot-fill" style="width:100%"></div></div><div class="boot-percent">ERROR</div></div>';}}
 setInterval(function(){
  if(state.screen==="game"){
    var target=state.blocks[state.target];
