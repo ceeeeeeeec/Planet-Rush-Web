@@ -41,7 +41,7 @@ function menu(){
  document.getElementById("upgrades").onclick=garage;
 }
 function startRun(){
- state.screen="game";state.blocks=makeBlocks();state.x=.5;state.y=.08;state.target=null;state.lastMine=0;render();
+ state.screen="game";state.blocks=makeBlocks();state.x=.5;state.y=.08;state.target=null;state.lastMine=0;state.vx=0;state.vy=0;render();
 }
 function garage(){
  state.screen="garage";render();
@@ -57,7 +57,7 @@ function upgradeCard(k,name,level,desc,value,cost){
 function render(){
  if(state.screen==="menu"){menu();return}
  if(state.screen==="garage"){garage();return}
- app.innerHTML='<div class="screen"><header class="top"><div class="stat"><span>PLANET</span><b>'+state.planet+'</b></div><div class="stat"><span>CREDITS</span><b class="gold">'+state.credits.toLocaleString()+'</b></div><div class="stat"><span>MINED</span><b>'+state.mined+'</b></div><div class="stat"><span>DRILL</span><b>'+state.damage+'×</b></div></header><main class="field" id="field"><div class="stars"></div><div class="planet"><div class="blocks" id="blocks">'+state.blocks.map(function(b,i){return '<div class="block '+(b.special?"special ": "")+(b.rare?"rare ":"")+'" data-i="'+i+'" style="left:'+(b.x/COLS*100)+'%;top:'+(b.y/ROWS*100)+'%;width:'+(100/COLS-.8)+'%;height:'+(100/ROWS-.8)+'%"></div>';}).join("")+'</div></div><div class="beam" id="beam"></div><div class="ship" id="ship"><div class="ship-body"></div><div class="ship-core"></div><div class="ship-fin left"></div><div class="ship-fin right"></div></div><div class="message">'+(state.auto?"AUTO MINING":"MANUAL TARGETING")+' • DRAG TO STEER</div><div class="hud"><div class="pill">POWER '+state.damage+'×</div><div class="pill">SPEED '+state.speed+'×</div></div></main><footer class="controls"><button id="auto" class="'+(state.auto?"active":"")+'">AUTO</button><button id="boost" class="primary">MINE NOW</button><button id="garage">GARAGE</button><button id="menu">MENU</button></footer></div>';
+ app.innerHTML='<div class="screen"><header class="top"><div class="stat"><span>PLANET</span><b>'+state.planet+'</b></div><div class="stat"><span>CREDITS</span><b class="gold">'+state.credits.toLocaleString()+'</b></div><div class="stat"><span>MINED</span><b>'+state.mined+'</b></div><div class="stat"><span>DRILL</span><b>'+state.damage+'×</b></div></header><main class="field" id="field"><div class="stars"></div><div id="toast" style="position:absolute;z-index:20;left:50%;top:54%;transform:translate(-50%,-50%) scale(.9);padding:12px 18px;border:1px solid #5bd8ff;border-radius:10px;background:#071522ee;color:#eafaff;font-size:12px;font-weight:900;letter-spacing:.12em;opacity:0;pointer-events:none;transition:.18s;white-space:nowrap"></div><div class="planet"><div class="blocks" id="blocks">'+state.blocks.map(function(b,i){return '<div class="block '+(b.special?"special ": "")+(b.rare?"rare ":"")+'" data-i="'+i+'" style="left:'+(b.x/COLS*100)+'%;top:'+(b.y/ROWS*100)+'%;width:'+(100/COLS-.8)+'%;height:'+(100/ROWS-.8)+'%"></div>';}).join("")+'</div></div><div class="beam" id="beam"></div><div class="ship" id="ship"><div class="ship-body"></div><div class="ship-core"></div><div class="ship-fin left"></div><div class="ship-fin right"></div></div><div class="message">'+(state.auto?"AUTO MINING":"MANUAL TARGETING")+' • DRAG TO STEER</div><div class="hud"><div class="pill">POWER '+state.damage+'×</div><div class="pill">SPEED '+state.speed+'×</div></div></main><footer class="controls"><button id="auto" class="'+(state.auto?"active":"")+'">AUTO</button><button id="boost" class="primary">MINE NOW</button><button id="garage">GARAGE</button><button id="menu">MENU</button></footer></div>';
  var field=document.getElementById("field"),ship=document.getElementById("ship"),beam=document.getElementById("beam");
  function place(){ship.style.left=(state.x*100)+"%";ship.style.top=(8+state.y*88)+"%";}
  place();
@@ -84,9 +84,17 @@ function mine(manual){
  state.vx+=(((b.x+.5)/COLS)-state.x)*.045;state.vy+=(((b.y+.5)/ROWS)-state.y)*.045;
  var gain=(b.special?25:b.rare?12:5)*state.magnet;
  b.hp-=state.damage;
+ var ship=document.getElementById("ship"),field=document.getElementById("field"),target=document.querySelector('.block[data-i="'+best+'"]');
+ if(ship&&field&&target){
+   var a=ship.getBoundingClientRect(),z=target.getBoundingClientRect(),r=field.getBoundingClientRect();
+   var beam=document.getElementById("beam"); if(beam){var dx=z.left+z.width/2-(a.left+a.width/2),dy=z.top+z.height/2-(a.top+a.height/2);beam.style.left=(a.left+a.width/2-r.left)+"px";beam.style.top=(a.top+a.height/2-r.top)+"px";beam.style.height=Math.hypot(dx,dy)+"px";beam.style.transform="rotate("+Math.atan2(dy,dx)+"rad)";beam.classList.add("active");setTimeout(function(){beam.classList.remove("active")},140)}
+   target.classList.add("hit");setTimeout(function(){if(target)target.classList.remove("hit")},150);
+ }
  render();
  if(b.hp<=0){
    state.blocks.splice(best,1);state.credits+=gain;state.mined++;
+   var toast=document.getElementById("toast");if(toast){toast.textContent="+"+gain+" CREDITS";toast.style.opacity="1";toast.style.transform="translate(-50%,-50%) scale(1)";setTimeout(function(){toast.style.opacity="0";toast.style.transform="translate(-50%,-50%) scale(.9)"},420)}
+
    render();
    if(state.blocks.length===0){setTimeout(nextPlanet,500);}
  }
