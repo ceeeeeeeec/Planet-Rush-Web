@@ -5,10 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <meta name="theme-color" content="#08101c">
   <title>Planet Rush</title>
-  <link rel="stylesheet" href="./src/style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div id="root"></div>
-  <script src="./src/main.js"></script>
+  <div id="root"><div class="boot">Loading Planet Rush…</div></div>
+  <script>
+    window.addEventListener("error", function (event) {
+      var root = document.getElementById("root");
+      if (root) root.innerHTML = '<div class="boot error">Planet Rush failed to start.<br><small>' +
+        String(event.message || "Unknown browser error") + '</small></div>';
+    });
+  </script>
+  <script src="./main.js"></script>
 </body>
 </html>
