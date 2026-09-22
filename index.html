@@ -1,21 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#050914">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#02050d">
 <title>Planet Rush</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#030711;color:#edf6ff;font-family:Inter,system-ui,-apple-system,sans-serif}body{overflow:hidden}
-#app{width:100%;height:100%}.screen{width:min(100%,820px);height:100%;margin:auto;display:flex;flex-direction:column;background:#07101d}
-.menu{height:100%;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 50% 27%,#1a3a55 0,#0b1929 38%,#030711 82%)}.menu-card{width:min(470px,100%);text-align:center}.logo{font-size:clamp(42px,10vw,72px);font-weight:950;letter-spacing:.07em;margin:0}.logo span{color:#65d9ff}.subtitle{color:#8095ab;margin:10px 0 38px;letter-spacing:.22em;font-size:10px}.menu-actions{display:grid;gap:10px}.play,.menu-btn,.upgrade-btn{min-height:54px;border-radius:11px;border:1px solid #2d465d;background:#112236;color:#eef7ff;font-weight:850;cursor:pointer}.play{background:#123952;border-color:#58d5ff;box-shadow:0 0 25px #38c8ff20;font-size:17px}.menu-btn:disabled{opacity:.45;cursor:default}.version{margin-top:18px;color:#52677e;font-size:10px;letter-spacing:.1em}
-.top{height:70px;display:flex;align-items:center;justify-content:space-around;border-bottom:1px solid #1b2b3c;background:#091521;flex-shrink:0}.stat{text-align:center;min-width:80px}.stat span{display:block;font-size:9px;letter-spacing:.15em;color:#687d93;margin-bottom:4px}.stat b{font-size:17px}.gold{color:#ffd166}.top .planet-name{color:#8fa5ba;font-size:10px}
-.field{position:relative;flex:1;overflow:hidden;touch-action:none;background:radial-gradient(circle at 50% 7%,#17334c 0,#091524 34%,#020610 84%)}.stars{position:absolute;inset:0;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:71px 69px;opacity:.13}.planet{position:absolute;left:6%;right:6%;top:8%;bottom:-4%;border-radius:50% 50% 0 0/18% 18% 0 0;background:linear-gradient(180deg,#26394a,#172636 48%,#0c1723);border:1px solid #334b60;box-shadow:0 -10px 45px #24465a22}.planet:before{content:"";position:absolute;left:5%;right:5%;top:3%;height:10px;border-radius:50%;background:#39566b66}.blocks{position:absolute;inset:5% 3% 0;overflow:hidden}.block{position:absolute;border-radius:5px;background:linear-gradient(145deg,#7c8fa1,#394b5d);box-shadow:inset 0 1px #ffffff22,0 2px 3px #0008;transition:opacity .15s,transform .15s}.block.special{background:linear-gradient(145deg,#ffe89d,#c68a19);box-shadow:0 0 14px #ffd16644}.block.rare{background:linear-gradient(145deg,#a78bfa,#6040a1);box-shadow:0 0 14px #9b7cff44}.block.hit{transform:scale(.65);opacity:0}
-.ship{position:absolute;z-index:8;width:76px;height:50px;transform:translate(-50%,-50%);pointer-events:none;transition:left .13s linear,top .13s linear}.ship-body{position:absolute;left:8px;right:8px;top:8px;height:34px;border-radius:50% 50% 40% 40%;background:linear-gradient(#dffaff,#5fb7d2 48%,#17495f);border:2px solid #dffaff;box-shadow:0 0 20px #4bd6ff77}.ship-core{position:absolute;left:29px;top:16px;width:18px;height:18px;border-radius:50%;background:#f7ffff;box-shadow:0 0 10px #fff}.ship-fin{position:absolute;bottom:1px;width:16px;height:15px;background:#174154;border:1px solid #63bfd9}.ship-fin.left{left:8px;transform:skewY(25deg)}.ship-fin.right{right:8px;transform:skewY(-25deg)}.beam{position:absolute;z-index:7;width:3px;transform-origin:top center;background:linear-gradient(#bdf5ff,#42caff00);pointer-events:none;opacity:0}.beam.active{opacity:1}.burst{position:absolute;z-index:9;width:34px;height:34px;border-radius:50%;border:2px solid #dffaff;pointer-events:none;animation:burst .28s ease-out forwards}.debris{position:absolute;z-index:9;width:5px;height:5px;border-radius:1px;background:#d9f8ff;pointer-events:none;animation:debris .42s ease-out forwards}@keyframes debris{to{transform:translate(var(--dx),var(--dy)) rotate(180deg);opacity:0}}@keyframes burst{to{transform:scale(2.4);opacity:0}}
-.build-overlay{position:absolute;z-index:30;right:10px;top:10px;padding:6px 9px;border:1px solid #294052;border-radius:7px;background:#06101bcc;color:#6f879b;font:8px ui-monospace,SFMono-Regular,monospace;letter-spacing:.05em;pointer-events:none}.hud{position:absolute;z-index:10;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;pointer-events:none}.pill{padding:7px 10px;border:1px solid #30465a;border-radius:8px;background:#07111dcc;color:#9eb2c5;font-size:9px;letter-spacing:.08em}.message{position:absolute;left:0;right:0;top:15px;text-align:center;color:#8398ac;font-size:9px;letter-spacing:.16em;pointer-events:none}
-.controls{height:78px;display:flex;gap:9px;padding:12px;background:#091521;border-top:1px solid #1b2b3c;flex-shrink:0}.controls button{flex:1;min-width:0;border:1px solid #294055;border-radius:10px;background:#112235;color:#eaf4ff;font-weight:800;cursor:pointer}.controls button.active{border-color:#58d5ff;color:#6bdcff}.controls button.primary{border-color:#58d5ff;background:#12364d}
-.panel{height:100%;overflow:auto;padding:22px;background:radial-gradient(circle at 50% 15%,#17324a 0,#081321 42%,#030711 90%)}.panel-inner{width:min(650px,100%);margin:auto}.back{border:0;background:none;color:#83a0b8;cursor:pointer;font-weight:700;padding:8px 0}.panel h2{font-size:30px;margin:10px 0 4px}.panel-sub{color:#7890a5;font-size:12px;margin-bottom:22px}.upgrade-list{display:grid;gap:10px}.upgrade{padding:15px;border:1px solid #263b50;border-radius:12px;background:#0b1826}.upgrade-head{display:flex;justify-content:space-between;gap:10px}.upgrade-name{font-weight:850}.level{color:#ffd166;font-size:11px}.upgrade p{margin:7px 0 12px;color:#8197ab;font-size:11px;line-height:1.4}.upgrade-btn{min-height:40px;width:100%;font-size:12px}.upgrade-btn:disabled{opacity:.45;cursor:default}
-@media(max-width:520px){.top{height:62px}.planet{left:2%;right:2%}.controls{height:70px;padding:9px}.controls button{font-size:11px}.panel{padding:16px}}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02050d;color:#e9f7ff;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button{font:inherit}#app{width:100%;height:100%}.shell{position:relative;width:min(100%,900px);height:100%;margin:auto;background:#030812;overflow:hidden}.world{position:absolute;inset:0}.world canvas{display:block;width:100%;height:100%}.topbar{position:absolute;z-index:20;top:0;left:0;right:0;height:74px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#040a14f2,#040a1400);pointer-events:none}.brand{font-size:12px;font-weight:950;letter-spacing:.16em}.brand span{color:#63dcff}.stats{display:flex;gap:7px}.stat{min-width:76px;padding:6px 9px;border:1px solid #284054;border-radius:8px;background:#07111dcc;text-align:center}.stat small{display:block;color:#71889d;font-size:7px;letter-spacing:.14em}.stat b{font-size:13px}.gold{color:#ffd76a}.bottom{position:absolute;z-index:20;left:0;right:0;bottom:0;height:78px;padding:11px;display:flex;gap:8px;background:linear-gradient(#040a1400,#040a14f5 35%)}.nav{flex:1;border:1px solid #263e52;border-radius:10px;background:#091624e8;color:#cfe4f1;font-weight:850;font-size:10px;letter-spacing:.05em;cursor:pointer}.nav.primary{border-color:#4dd7ff;background:#0c3044}.run-info{position:absolute;z-index:15;top:80px;left:50%;transform:translateX(-50%);color:#7e9aae;font-size:8px;letter-spacing:.17em;white-space:nowrap;pointer-events:none}.build{position:absolute;z-index:40;right:10px;top:78px;padding:5px 7px;border:1px solid #263c4e;border-radius:6px;background:#040b13c9;color:#6b8192;font:7px ui-monospace,monospace;letter-spacing:.06em;pointer-events:none}.overlay{position:absolute;z-index:100;inset:7% 5% 9%;display:none;flex-direction:column;border:1px solid #36546a;border-radius:16px;background:linear-gradient(145deg,#0a1827f7,#030912f9);box-shadow:0 20px 80px #000c,0 0 35px #2bc9ff12;backdrop-filter:blur(10px);overflow:hidden}.overlay.open{display:flex}.ov-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #213649}.ov-title{font-size:22px;font-weight:950;letter-spacing:.05em}.ov-sub{margin-top:3px;color:#71899d;font-size:9px;letter-spacing:.1em}.close{width:38px;height:38px;border:1px solid #30495d;border-radius:9px;background:#0c1b2a;color:#bcd2df;cursor:pointer;font-size:20px}.ov-body{flex:1;overflow:auto;padding:16px}.cards{display:grid;gap:10px}.card{padding:14px;border:1px solid #243c50;border-radius:11px;background:#081522}.card-head{display:flex;justify-content:space-between;align-items:center}.card h3{margin:0;font-size:12px}.lv{color:#ffd76a;font-size:9px}.card p{margin:7px 0 12px;color:#7890a4;font-size:10px;line-height:1.45}.buy{width:100%;min-height:40px;border:1px solid #31516a;border-radius:8px;background:#102337;color:#dff6ff;font-weight:850;font-size:10px;cursor:pointer}.buy:disabled{opacity:.4}.tabs{display:flex;gap:7px;margin-bottom:12px}.tab{flex:1;padding:9px;border:1px solid #284154;border-radius:8px;background:#081522;color:#7891a5;font-size:9px;font-weight:850;cursor:pointer}.tab.on{border-color:#4dd7ff;color:#75ddff}.menu{position:absolute;z-index:200;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#123b54 0,#071522 35%,#02050d 78%)}.menu-card{text-align:center;width:min(470px,88%)}.logo{margin:0;font-size:clamp(42px,11vw,74px);font-weight:1000;letter-spacing:.08em}.logo span{color:#5edcff}.tag{margin:9px 0 32px;color:#7590a4;font-size:9px;letter-spacing:.24em}.start{width:100%;height:56px;border:1px solid #55d9ff;border-radius:11px;background:#103a51;color:#effcff;font-weight:950;font-size:16px;cursor:pointer;box-shadow:0 0 35px #3bd5ff1d}.menu-links{display:flex;gap:8px;margin-top:10px}.menu-links button{flex:1;height:46px;border:1px solid #263e52;border-radius:10px;background:#0b1928;color:#b9cdda;font-weight:800;font-size:10px;cursor:pointer}.hint{margin-top:16px;color:#4d6477;font-size:8px;letter-spacing:.1em}@media(max-width:560px){.topbar{height:64px;padding:9px}.stats{gap:4px}.stat{min-width:61px;padding:5px}.stat small{font-size:6px}.stat b{font-size:11px}.bottom{height:70px;padding:8px}.nav{font-size:9px}.overlay{inset:5% 3% 7%}.run-info{top:68px}.build{top:68px}.ov-title{font-size:19px}}
 </style>
 </head>
 <body>
@@ -24,112 +15,222 @@
 (function(){
 "use strict";
 var app=document.getElementById("app");
-var state={screen:"menu",planet:1,credits:0,mined:0,x:.5,y:.10,target:null,auto:true,damage:1,speed:1,magnet:1,basePower:1,prestige:0,blocks:[],lastMine:0,lastFrame:performance.now(),vx:0,vy:0};
-var COLS=10,ROWS=20,runTimer=0;
+var BUILD="0.5";
+var C={w:0,h:0,dpr:1,ctx:null};
+var state={
+ running:false,planet:1,credits:0,mined:0,depth:0,damage:1,speed:1,magnet:1,basePower:1,prestige:0,
+ blocks:[],ship:{x:0,y:0,vx:0,vy:0,a:0,target:null},particles:[],texts:[],shots:[],shake:0,
+ overlay:null,lastTime:0,runStarted:false,weapon:"lance"
+};
+var TYPES={
+ normal:{hp:3,value:5,fill:"#304a5e",glow:"#48c9ff"},
+ gold:{hp:7,value:28,fill:"#77541a",glow:"#ffd45c"},
+ energy:{hp:5,value:16,fill:"#174b5a",glow:"#54f5ff"},
+ explosive:{hp:5,value:12,fill:"#652b46",glow:"#ff557f"},
+ crystal:{hp:9,value:45,fill:"#4d2d72",glow:"#c07cff"}
+};
+function esc(s){return String(s).replace(/[&<>"']/g,function(x){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[x]})}
+function menu(){
+ state.running=false;state.overlay=null;
+ app.innerHTML='<div class="shell"><div class="menu"><div class="menu-card"><h1 class="logo">PLANET <span>RUSH</span></h1><div class="tag">AUTONOMOUS DEEP-SPACE MINING</div><button class="start" id="start">START RUN</button><div class="menu-links"><button id="garageMenu">GARAGE</button><button id="baseMenu">BASE</button></div><div class="hint">BUILD '+BUILD+' • CANVAS CORE</div></div></div></div>';
+ document.getElementById("start").onclick=startRun;
+ document.getElementById("garageMenu").onclick=function(){startRun();openOverlay("garage")};
+ document.getElementById("baseMenu").onclick=function(){startRun();openOverlay("base")};
+}
 function makeBlocks(){
- var a=[];
- for(var y=1;y<ROWS;y++) for(var x=0;x<COLS;x++){
-   if(Math.random()<.075) continue;
-   var roll=Math.random();
-   a.push({x:x,y:y,special:roll<.055,rare:roll>=.055&&roll<.085,hp:roll<.055?3:roll<.085?2:1});
+ var a=[],cols=18,rows=34;
+ for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){
+   var edge=Math.abs(x-(cols-1)/2)/((cols-1)/2);
+   var limit=0.99-(y/rows)*.10;
+   if(edge>limit)continue;
+   var r=Math.random(),type=r<.035?"gold":r<.060?"energy":r<.075?"explosive":r<.09?"crystal":"normal";
+   var t=TYPES[type];
+   a.push({x:x,y:y,type:type,hp:t.hp,max:t.hp,dead:false,hit:0});
  }
  return a;
 }
-function menu(){
- app.innerHTML='<div class="screen menu"><div class="menu-card"><h1 class="logo">PLANET <span>RUSH</span></h1><div class="subtitle">AUTONOMOUS DEEP-SPACE MINING</div><div class="menu-actions"><button class="play" id="play">START RUN</button><button class="menu-btn" id="upgrades">GARAGE & UPGRADES</button><button class="menu-btn" id="base">BASE UPGRADES & PRESTIGE</button><button class="menu-btn" id="continue" disabled>CONTINUE RUN</button></div><div class="version">WEB VERTICAL SLICE • PLANET '+state.planet+'</div></div></div>';
- document.getElementById("play").onclick=startRun;
- document.getElementById("upgrades").onclick=garage;
- document.getElementById("base").onclick=baseUpgrades;
-}
 function startRun(){
- state.screen="game";state.blocks=makeBlocks();state.x=.5;state.y=.08;state.target=null;state.lastMine=0;state.vx=0;state.vy=0;render();
+ state.running=true;state.overlay=null;state.blocks=makeBlocks();state.planet=Math.max(1,state.planet);state.depth=0;
+ state.ship={x:C.w*.5,y:C.h*.22,vx:0,vy:30,a:Math.PI/2,target:null};state.particles=[];state.texts=[];state.shots=[];state.lastTime=performance.now();state.runStarted=true;
+ renderShell();resize();requestAnimationFrame(loop);
 }
-function stats(){
- state.screen="stats";
- app.innerHTML='<div class="screen"><div class="panel"><div class="panel-inner"><button class="back" id="back">← HOME</button><h2>COMMAND LOG</h2><div class="panel-sub">Your mining career and current run performance.</div><div class="upgrade-list"><div class="upgrade"><div class="upgrade-head"><div class="upgrade-name">CURRENT RUN</div><div class="level">PLANET '+state.planet+'</div></div><p>Blocks mined this session: <b>'+state.mined+'</b><br>Credits held: <b>'+Math.floor(state.credits)+'</b><br>Drill power: <b>'+state.damage+'×</b><br>Mining speed: <b>'+state.speed+'×</b></p></div><div class="upgrade"><div class="upgrade-head"><div class="upgrade-name">PERMANENT</div><div class="level">PRESTIGE '+state.prestige+'</div></div><p>Base power: <b>'+state.basePower+'</b><br>Resource multiplier: <b>'+((1+state.prestige*.01).toFixed(2))+'×</b></p></div><div class="upgrade"><div class="upgrade-head"><div class="upgrade-name">LEADERBOARD</div><div class="level">LOCAL</div></div><p>Highest planet reached: <b>'+state.planet+'</b><br>Total mined: <b>'+state.mined+'</b></p></div></div></div></div></div>';
- document.getElementById("back").onclick=function(){state.screen="menu";render()};
+function renderShell(){
+ app.innerHTML='<div class="shell"><div class="world"><canvas id="game"></canvas></div><div class="topbar"><div class="brand">PLANET <span>RUSH</span></div><div class="stats"><div class="stat"><small>PLANET</small><b id="planet">1</b></div><div class="stat"><small>CREDITS</small><b class="gold" id="credits">0</b></div><div class="stat"><small>MINED</small><b id="mined">0</b></div><div class="stat"><small>DEPTH</small><b id="depth">0m</b></div></div></div><div class="run-info">AUTO MINING • AUTONOMOUS NAVIGATION</div><div class="build">BUILD '+BUILD+' • CANVAS</div><div class="bottom"><button class="nav primary" id="garage">GARAGE</button><button class="nav" id="armory">ARMORY</button><button class="nav" id="stats">STATS</button><button class="nav" id="base">BASE</button></div><div class="overlay" id="overlay"><div class="ov-head"><div><div class="ov-title" id="ovTitle"></div><div class="ov-sub" id="ovSub"></div></div><button class="close" id="close">×</button></div><div class="ov-body" id="ovBody"></div></div></div>';
+ document.getElementById("garage").onclick=function(){openOverlay("garage")};
+ document.getElementById("armory").onclick=function(){openOverlay("armory")};
+ document.getElementById("stats").onclick=function(){openOverlay("stats")};
+ document.getElementById("base").onclick=function(){openOverlay("base")};
+ document.getElementById("close").onclick=closeOverlay;
+ updateHud();
 }
-function baseUpgrades(){
- state.screen="base";
- app.innerHTML='<div class="screen"><div class="panel"><div class="panel-inner"><button class="back" id="back">← HOME</button><h2>BASE</h2><div class="panel-sub">Permanent powers survive every planet. Prestige resets run resources for a permanent multiplier.</div><div class="upgrade-list"><div class="upgrade"><div class="upgrade-head"><div class="upgrade-name">Core Power</div><div class="level">LV '+state.basePower+'</div></div><p>Improves the baseline strength of every future mining ship.</p><button class="upgrade-btn" id="basebuy" '+(state.credits<25*state.basePower?"disabled":"")+'>UPGRADE • '+(25*state.basePower)+' CREDITS</button></div><div class="upgrade"><div class="upgrade-head"><div class="upgrade-name">Prestige</div><div class="level">BONUS '+state.prestige+'%</div></div><p>Reset current credits and planet progress in exchange for permanent base power.</p><button class="upgrade-btn" id="prestige" '+(state.planet<5?"disabled":"")+'>PRESTIGE</button></div></div></div></div></div>';
- document.getElementById("back").onclick=function(){state.screen="menu";render()};
- document.getElementById("basebuy").onclick=function(){var cost=25*state.basePower;if(state.credits>=cost){state.credits-=cost;state.basePower++;baseUpgrades()}};
- document.getElementById("prestige").onclick=function(){if(state.planet>=5){state.prestige++;state.basePower+=2;state.planet=1;state.credits=0;state.blocks=[];baseUpgrades()}};
-}
-function garage(){
- state.screen="garage";render();
-}
-function garage(){
- app.innerHTML='<div class="screen"><div class="panel"><div class="panel-inner"><button class="back" id="back">← BACK</button><h2>GARAGE</h2><div class="panel-sub">Spend credits to permanently improve your mining ship.</div><div class="upgrade-list">'+upgradeCard("damage","Drill Power",state.damage,"More damage per mining pass.","Damage: "+state.damage,10*state.damage)+" "+upgradeCard("speed","Mining Speed",state.speed,"Shorter delay between mining passes.","Cycle: "+state.speed+"×",15*state.speed)+" "+upgradeCard("magnet","Resource Core",state.magnet,"Increases the value collected from blocks.","Value: "+state.magnet+"×",20*state.magnet)+'</div></div></div></div>';
- document.getElementById("back").onclick=function(){state.screen="menu";render()};
- ["damage","speed","magnet"].forEach(function(k){var b=document.getElementById("buy-"+k);if(b)b.onclick=function(){var cost=Number(b.dataset.cost);if(state.credits>=cost){state.credits-=cost;state[k]++;garage()}}});
-}
-function upgradeCard(k,name,level,desc,value,cost){
- return '<div class="upgrade"><div class="upgrade-head"><div class="upgrade-name">'+name+'</div><div class="level">LV '+level+'</div></div><p>'+desc+' '+value+'.</p><button class="upgrade-btn" id="buy-'+k+'" data-cost="'+cost+'" '+(state.credits<cost?"disabled":"")+'>UPGRADE • '+cost+' CREDITS</button></div>';
-}
-function render(){
- if(state.screen==="menu"){menu();return}
- if(state.screen==="garage"){garage();return}
- if(state.screen==="base"){baseUpgrades();return}
- if(state.screen==="stats"){stats();return}
- app.innerHTML='<div class="screen"><header class="top"><div class="stat"><span>PLANET</span><b>'+state.planet+'</b></div><div class="stat"><span>CREDITS</span><b class="gold">'+state.credits.toLocaleString()+'</b></div><div class="stat"><span>MINED</span><b>'+state.mined+'</b></div><div class="stat"><span>DRILL</span><b>'+state.damage+'×</b></div></header><main class="field" id="field"><div class="stars"></div><div id="toast" style="position:absolute;z-index:20;left:50%;top:54%;transform:translate(-50%,-50%) scale(.9);padding:12px 18px;border:1px solid #5bd8ff;border-radius:10px;background:#071522ee;color:#eafaff;font-size:12px;font-weight:900;letter-spacing:.12em;opacity:0;pointer-events:none;transition:.18s;white-space:nowrap"></div><div class="planet"><div class="blocks" id="blocks">'+state.blocks.map(function(b,i){return '<div class="block '+(b.special?"special ": "")+(b.rare?"rare ":"")+'" data-i="'+i+'" style="left:'+(b.x/COLS*100)+'%;top:'+(b.y/ROWS*100)+'%;width:'+(100/COLS-.8)+'%;height:'+(100/ROWS-.8)+'%"></div>';}).join("")+'</div></div><div class="beam" id="beam"></div><div class="ship" id="ship"><div class="ship-body"></div><div class="ship-core"></div><div class="ship-fin left"></div><div class="ship-fin right"></div></div><div class="message">'+(state.auto?"AUTO MINING":"MANUAL TARGETING")+' • DRAG TO STEER</div><div class="hud"><div class="pill">POWER '+state.damage+'×</div><div class="pill">SPEED '+state.speed+'×</div></div></main><footer class="controls"><button id="garage" class="primary">GARAGE</button><button id="stats">STATS</button><button id="home">HOME</button></footer></div>';
- var field=document.getElementById("field"),ship=document.getElementById("ship"),beam=document.getElementById("beam");
- function place(){ship.style.left=(state.x*100)+"%";ship.style.top=(8+state.y*88)+"%";}
- place();
- var dragging=false;
- field.onpointerdown=function(e){dragging=true;field.setPointerCapture&&field.setPointerCapture(e.pointerId);move(e)};
- field.onpointermove=move;field.onpointerup=field.onpointercancel=function(){dragging=false};
- function move(e){if(!dragging)return;var r=field.getBoundingClientRect(),tx=Math.max(.08,Math.min(.92,(e.clientX-r.left)/r.width)),ty=Math.max(.02,Math.min(.90,(e.clientY-r.top)/r.height));state.vx+=(tx-state.x)*.18;state.vy+=(ty-state.y)*.18;}
- document.getElementById("garage").onclick=garage;
- document.getElementById("stats").onclick=stats;
- document.getElementById("home").onclick=function(){state.screen="menu";render()};
-}
-function mine(manual){
- if(state.screen!=="game"||!state.blocks.length)return;
- var best=-1,score=Infinity;
- for(var i=0;i<state.blocks.length;i++){
-   var b=state.blocks[i],bx=(b.x+.5)/COLS,by=(b.y+.5)/ROWS;
-   var s=Math.abs(bx-state.x)+Math.abs(by-state.y)*.55;
-   if(s<score){score=s;best=i;}
+function openOverlay(kind){state.overlay=kind;var o=document.getElementById("overlay");if(!o)return;o.classList.add("open");fillOverlay(kind)}
+function closeOverlay(){state.overlay=null;var o=document.getElementById("overlay");if(o)o.classList.remove("open")}
+function fillOverlay(kind){
+ var title="",sub="",body="";
+ if(kind==="garage"){
+  title="GARAGE";sub="SHIP UPGRADES • GAMEPLAY CONTINUES BEHIND";
+  body='<div class="cards">'+upgrade("Drill Power","damage",state.damage,"More damage dealt to every block.",10*state.damage)+upgrade("Mining Speed","speed",state.speed,"Shorter attack cycle and faster target work.",15*state.speed)+upgrade("Resource Core","magnet",state.magnet,"Increases resources from every block.",20*state.magnet)+'</div>';
  }
- if(best<0)return;
- var b=state.blocks[best];
- state.target=best;
- state.vx+=(((b.x+.5)/COLS)-state.x)*.045;state.vy+=(((b.y+.5)/ROWS)-state.y)*.045;
- var gain=(b.special?25:b.rare?12:5)*state.magnet*(1+state.prestige*.01);
- var fieldEl=document.getElementById("field"), targetEl=document.querySelector('.block[data-i="'+best+'"]');
- if(fieldEl&&targetEl){var fr=fieldEl.getBoundingClientRect(),tr=targetEl.getBoundingClientRect(),cx=tr.left+tr.width/2-fr.left,cy=tr.top+tr.height/2-fr.top;
-   var burst=document.createElement("div");burst.className="burst";burst.style.left=(cx-17)+"px";burst.style.top=(cy-17)+"px";fieldEl.appendChild(burst);setTimeout(function(){burst.remove()},320);
-   for(var di=0;di<7;di++){var d=document.createElement("div"),ang=Math.random()*Math.PI*2,len=20+Math.random()*34;d.className="debris";d.style.left=(cx-2)+"px";d.style.top=(cy-2)+"px";d.style.setProperty("--dx",Math.cos(ang)*len+"px");d.style.setProperty("--dy",Math.sin(ang)*len+"px");fieldEl.appendChild(d);setTimeout(function(x){return function(){x.remove()}}(d),480);}
+ if(kind==="armory"){
+  title="ARMORY";sub="WEAPON LOADOUT";
+  body='<div class="tabs"><button class="tab '+(state.weapon==="lance"?"on":"")+'" data-w="lance">DRILL LANCE</button><button class="tab '+(state.weapon==="pulse"?"on":"")+'" data-w="pulse">PULSE CANNON</button><button class="tab '+(state.weapon==="blast"?"on":"")+'" data-w="blast">BLAST CHARGE</button></div><div class="cards">'+weaponCard("lance","DRILL LANCE","Focused beam that stays locked to one target.",1,420)+weaponCard("pulse","PULSE CANNON","Fast travelling energy bolt with heavier impact.",2,650)+weaponCard("blast","BLAST CHARGE","Explosive shot that damages nearby blocks.",3,900)+'</div>';
  }
- b.hp-=state.damage+state.basePower-1;
- var ship=document.getElementById("ship"),field=document.getElementById("field"),target=document.querySelector('.block[data-i="'+best+'"]');
- if(ship&&field&&target){
-   var a=ship.getBoundingClientRect(),z=target.getBoundingClientRect(),r=field.getBoundingClientRect();
-   var beam=document.getElementById("beam"); if(beam){var dx=z.left+z.width/2-(a.left+a.width/2),dy=z.top+z.height/2-(a.top+a.height/2);beam.style.left=(a.left+a.width/2-r.left)+"px";beam.style.top=(a.top+a.height/2-r.top)+"px";beam.style.height=Math.hypot(dx,dy)+"px";beam.style.transform="rotate("+Math.atan2(dy,dx)+"rad)";beam.classList.add("active");setTimeout(function(){beam.classList.remove("active")},140)}
-   target.classList.add("hit");setTimeout(function(){if(target)target.classList.remove("hit")},150);
+ if(kind==="stats"){
+  title="COMMAND LOG";sub="CURRENT RUN + PERMANENT PROGRESSION";
+  body='<div class="cards"><div class="card"><div class="card-head"><h3>CURRENT RUN</h3><span class="lv">PLANET '+state.planet+'</span></div><p>Blocks mined: <b>'+state.mined+'</b><br>Depth reached: <b>'+Math.floor(state.depth)+'m</b><br>Credits: <b>'+Math.floor(state.credits)+'</b><br>Weapon: <b>'+esc(state.weapon.toUpperCase())+'</b></p></div><div class="card"><div class="card-head"><h3>PERMANENT</h3><span class="lv">PRESTIGE '+state.prestige+'</span></div><p>Base power: <b>'+state.basePower+'</b><br>Permanent resource bonus: <b>'+((1+state.prestige*.01).toFixed(2))+'×</b></p></div><div class="card"><div class="card-head"><h3>SECTOR PROGRESS</h3><span class="lv">ACTIVE</span></div><p>Planet <b>'+state.planet+'</b> is currently being mined. Clear the field to advance.</p></div></div>';
  }
- render();
+ if(kind==="base"){
+  title="BASE";sub="PERMANENT POWER • PRESTIGE";
+  body='<div class="cards">'+upgrade("Core Power","basePower",state.basePower,"Raises baseline ship strength.",25*state.basePower) + '<div class="card"><div class="card-head"><h3>PRESTIGE</h3><span class="lv">'+state.prestige+'%</span></div><p>Reset current planet progress and credits in exchange for permanent progression. Unlock condition: reach Planet 5.</p><button class="buy" id="prestige" '+(state.planet<5?"disabled":"")+'>PRESTIGE</button></div></div>';
+ }
+ var ot=document.getElementById("ovTitle"),os=document.getElementById("ovSub"),ob=document.getElementById("ovBody");
+ if(ot){ot.textContent=title;os.textContent=sub;ob.innerHTML=body}
+ if(kind==="garage"||kind==="base"){
+  ob.querySelectorAll("[data-upgrade]").forEach(function(b){b.onclick=function(){var k=b.dataset.upgrade,c=Number(b.dataset.cost);if(state.credits>=c){state.credits-=c;state[k]++;fillOverlay(kind);updateHud()}}});
+ }
+ if(kind==="armory"){
+  ob.querySelectorAll("[data-w]").forEach(function(b){b.onclick=function(){state.weapon=b.dataset.w;fillOverlay("armory")}})
+ }
+ var p=document.getElementById("prestige");if(p)p.onclick=function(){if(state.planet>=5){state.prestige++;state.basePower+=2;state.planet=1;state.credits=0;state.blocks=makeBlocks();fillOverlay("base");updateHud()}};
+}
+function upgrade(name,key,level,desc,cost){
+ return '<div class="card"><div class="card-head"><h3>'+name+'</h3><span class="lv">LV '+level+'</span></div><p>'+desc+'</p><button class="buy" data-upgrade="'+key+'" data-cost="'+cost+'" '+(state.credits<cost?"disabled":"")+'>UPGRADE • '+cost+' CREDITS</button></div>';
+}
+function weaponCard(key,name,desc,dmg,cost){
+ return '<div class="card"><div class="card-head"><h3>'+name+'</h3><span class="lv">'+(state.weapon===key?"EQUIPPED":"READY")+'</span></div><p>'+desc+' Base power: '+dmg+'×.</p><button class="buy" data-w="'+key+'">'+(state.weapon===key?"EQUIPPED":"EQUIP")+'</button></div>';
+}
+function resize(){
+ var cv=document.getElementById("game");if(!cv)return;
+ var r=cv.getBoundingClientRect(),d=Math.min(2,window.devicePixelRatio||1);C.w=r.width;C.h=r.height;C.dpr=d;cv.width=Math.floor(C.w*d);cv.height=Math.floor(C.h*d);C.ctx=cv.getContext("2d");C.ctx.setTransform(d,0,0,d,0,0);
+}
+window.addEventListener("resize",resize);
+function planetGeometry(){
+ return {cx:C.w/2,cy:C.h*.68,rx:C.w*.44,ry:C.h*.48};
+}
+function drawBackground(ctx,t){
+ ctx.clearRect(0,0,C.w,C.h);
+ var g=ctx.createRadialGradient(C.w*.5,C.h*.18,0,C.w*.5,C.h*.45,C.h*.8);g.addColorStop(0,"#102d43");g.addColorStop(.38,"#071522");g.addColorStop(1,"#02050c");ctx.fillStyle=g;ctx.fillRect(0,0,C.w,C.h);
+ for(var i=0;i<80;i++){var x=(i*97.31)%C.w,y=(i*47.17)%C.h;var a=.12+.08*Math.sin(t*.0005+i);ctx.fillStyle="rgba(190,235,255,"+a+")";ctx.fillRect(x,y,1+(i%2),1+(i%2))}
+ var p=planetGeometry();ctx.save();ctx.beginPath();ctx.ellipse(p.cx,p.cy,p.rx,p.ry,0,Math.PI,Math.PI*2);ctx.fillStyle="#08131f";ctx.fill();ctx.clip();
+ var pg=ctx.createLinearGradient(0,p.cy-p.ry,0,p.cy);pg.addColorStop(0,"#24465b");pg.addColorStop(.25,"#142d3f");pg.addColorStop(1,"#08141f");ctx.fillStyle=pg;ctx.fillRect(0,p.cy-p.ry,C.w,p.ry);
+ ctx.restore();
+ ctx.beginPath();ctx.ellipse(p.cx,p.cy,p.rx,p.ry*.20,0,0,Math.PI*2);ctx.strokeStyle="#5fdcff35";ctx.lineWidth=2;ctx.stroke();
+}
+function blockPos(b){
+ var p=planetGeometry(),cols=18,rows=34;
+ var bw=(p.rx*2)/cols*1.02,bh=(p.ry*1.38)/rows;
+ var x=p.cx-p.rx+b.x*bw+bw*.5;
+ var y=p.cy-p.ry*.92+b.y*bh+bh*.5;
+ var surface=((y-p.cy)/p.ry);var width=Math.max(0.12,Math.sqrt(Math.max(.02,1-surface*surface)));
+ return {x:x,y:y,w:bw*.92*width,h:bh*.88};
+}
+function drawBlock(ctx,b){
+ var q=blockPos(b);if(q.y>C.h*.92)return;
+ var t=TYPES[b.type],hp=Math.max(0,b.hp/b.max),hit=b.hit;
+ ctx.save();ctx.translate(q.x,q.y);
+ ctx.globalAlpha=.35+hp*.65;
+ var glow=t.glow;ctx.shadowColor=glow;ctx.shadowBlur=hit>0?16:5;
+ ctx.fillStyle=t.fill;ctx.strokeStyle=glow;ctx.lineWidth=hit>0?2:1;
+ var w=q.w*.94,h=q.h*.9;
+ ctx.beginPath();ctx.roundRect(-w/2,-h/2,w,h,2);ctx.fill();ctx.stroke();
+ ctx.shadowBlur=0;ctx.fillStyle="rgba(255,255,255,.18)";ctx.beginPath();ctx.moveTo(-w/2+2,-h/2+2);ctx.lineTo(w/2-2,-h/2+2);ctx.lineTo(w/2-4,-h/2+5);ctx.lineTo(-w/2+2,-h/2+5);ctx.fill();
+ if(hp<.99){ctx.fillStyle=t.glow;ctx.globalAlpha=.8;ctx.fillRect(-w/2,-h/2-3,w*hp,2)}
+ if(b.type==="explosive"){ctx.strokeStyle="#ff9bb4";ctx.globalAlpha=.8;ctx.beginPath();ctx.moveTo(-3,-3);ctx.lineTo(3,3);ctx.moveTo(3,-3);ctx.lineTo(-3,3);ctx.stroke()}
+ ctx.restore();
+}
+function chooseTarget(){
+ var s=state.ship,best=null,score=1e9;
+ for(var i=0;i<state.blocks.length;i++){var b=state.blocks[i];if(b.dead)continue;var q=blockPos(b),dx=q.x-s.x,dy=q.y-s.y;var dist=Math.hypot(dx,dy);var score2=dist+(q.y<C.h*.34?160:0);if(dist<score){score=dist;best=i}}
+ return best;
+}
+function addBurst(x,y,color,n,power){
+ for(var i=0;i<n;i++){var a=Math.random()*Math.PI*2,v=(20+Math.random()*90)*(power||1);state.particles.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:1+Math.random()*2,life:.35+Math.random()*.55,max:.8,color:color})}
+}
+function addText(x,y,text,color){state.texts.push({x:x,y:y,text:text,color:color,life:.75})}
+function attack(now){
+ var s=state.ship;if(s.target==null||!state.blocks[s.target]||state.blocks[s.target].dead)s.target=chooseTarget();
+ var b=state.blocks[s.target];if(!b)return;
+ var q=blockPos(b),dx=q.x-s.x,dy=q.y-s.y,d=Math.hypot(dx,dy);
+ if(d>Math.max(42,q.w*2.2))return;
+ var mult=state.weapon==="pulse"?1.7:state.weapon==="blast"?1.25:1;
+ var dmg=(state.damage+state.basePower-1)*mult;
+ b.hp-=dmg;b.hit=.12;
+ var t=TYPES[b.type];state.shots.push({x:s.x,y:s.y,tx:q.x,ty:q.y,life:.16,type:state.weapon,color:t.glow});
+ addBurst(q.x,q.y,t.glow,state.weapon==="blast"?10:5,state.weapon==="blast"?1.3:1);
+ state.shake=Math.min(5,state.shake+1.2);
  if(b.hp<=0){
-   state.blocks.splice(best,1);state.credits+=gain;state.mined++;
-   if(b.special||b.rare){var fieldEl2=document.getElementById("field");if(fieldEl2){var label=document.createElement("div");label.className="pill";label.style.position="absolute";label.style.left="50%";label.style.top="48%";label.style.transform="translate(-50%,-50%)";label.style.color=b.special?"#ffd166":"#c9b8ff";label.style.borderColor=b.special?"#ffd166":"#9b7cff";label.textContent=b.special?"RARE CACHE":"CRYSTAL";fieldEl2.appendChild(label);setTimeout(function(){label.remove()},650);}}
-
-   var toast=document.getElementById("toast");if(toast){toast.textContent="+"+gain+" CREDITS";toast.style.opacity="1";toast.style.transform="translate(-50%,-50%) scale(1)";setTimeout(function(){toast.style.opacity="0";toast.style.transform="translate(-50%,-50%) scale(.9)"},420)}
-
-   render();
-   if(state.blocks.length===0){setTimeout(nextPlanet,500);}
+  b.dead=true;var gain=Math.floor(t.value*state.magnet*(1+state.prestige*.01));state.credits+=gain;state.mined++;state.depth=Math.max(state.depth,q.y/C.h*120);
+  addText(q.x,q.y,"+"+gain,t.glow);
+  addBurst(q.x,q.y,t.glow,18,1.4);
+  if(b.type==="explosive")chainExplode(b);
+  s.target=null;
+  if(state.mined%18===0&&state.blocks.filter(function(z){return !z.dead}).length<30)nextPlanet();
  }
 }
-function nextPlanet(){
- if(state.screen!=="game")return;
- state.planet++;state.blocks=makeBlocks();state.x=.5;state.y=.08;state.target=null;render();
+function chainExplode(origin){
+ var oq=blockPos(origin);
+ state.blocks.forEach(function(b){if(b.dead)return;var q=blockPos(b),d=Math.hypot(q.x-oq.x,q.y-oq.y);if(d<55){b.hp-=3;b.hit=.18;addBurst(q.x,q.y,"#ff557f",7,1.1);if(b.hp<=0){b.dead=true;state.credits+=Math.floor(TYPES[b.type].value*.5);state.mined++;addText(q.x,q.y,"CHAIN","#ff7797")}}});
+ addBurst(oq.x,oq.y,"#ff557f",30,2);state.shake=8;
 }
-menu();
-setInterval(function(){
- if(state.screen==="game"&&state.auto&&Date.now()-state.lastMine>Math.max(220,650/state.speed)){
-   state.lastMine=Date.now();mine(false);
- }
-},100);
+function nextPlanet(){state.planet++;state.blocks=makeBlocks();state.ship.x=C.w*.5;state.ship.y=C.h*.18;state.depth=0;addText(C.w*.5,C.h*.35,"PLANET "+state.planet,"#64dcff");updateHud()}
+function updateHud(){
+ var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v};
+ set("planet",state.planet);set("credits",Math.floor(state.credits).toLocaleString());set("mined",state.mined);set("depth",Math.floor(state.depth)+"m");
+}
+function update(dt,now){
+ if(!state.running)return;
+ var s=state.ship;
+ var live=state.blocks.filter(function(b){return !b.dead});
+ if(!live.length){nextPlanet();return}
+ if(s.target==null||!state.blocks[s.target]||state.blocks[s.target].dead)s.target=chooseTarget();
+ var b=state.blocks[s.target],q=b?blockPos(b):{x:C.w*.5,y:C.h*.5};
+ var dx=q.x-s.x,dy=q.y-s.y,d=Math.hypot(dx,dy)||1;
+ var desiredX=dx/d,desiredY=dy/d;
+ var orbitX=-desiredY,orbitY=desiredX;
+ var near=d<100?1:0;
+ var accel=90+state.speed*18;
+ s.vx+=(desiredX*accel+orbitX*near*48)*dt;s.vy+=(desiredY*accel+orbitY*near*48)*dt;
+ var max=115+state.speed*30;var v=Math.hypot(s.vx,s.vy);if(v>max){s.vx=s.vx/v*max;s.vy=s.vy/v*max}
+ s.vx*=Math.pow(.90,dt*60);s.vy*=Math.pow(.90,dt*60);s.x+=s.vx*dt;s.y+=s.vy*dt;
+ var p=planetGeometry();var minY=C.h*.12,maxY=p.cy+p.ry*.08;s.x=Math.max(C.w*.12,Math.min(C.w*.88,s.x));s.y=Math.max(minY,Math.min(maxY,s.y));
+ if(Math.hypot(s.vx,s.vy)>2)s.a=Math.atan2(s.vy,s.vx);
+ if(now-(state.lastAttack||0)>Math.max(230,520/state.speed)){state.lastAttack=now;attack(now)}
+ state.blocks.forEach(function(z){if(z.hit>0)z.hit-=dt});
+ state.particles.forEach(function(x){x.x+=x.vx*dt;x.y+=x.vy*dt;x.vx*=.94;x.vy*=.94;x.life-=dt});
+ state.particles=state.particles.filter(function(x){return x.life>0});
+ state.texts.forEach(function(x){x.y-=28*dt;x.life-=dt});state.texts=state.texts.filter(function(x){return x.life>0});
+ state.shots.forEach(function(x){x.life-=dt});state.shots=state.shots.filter(function(x){return x.life>0});
+ state.shake*=Math.pow(.08,dt);
+ updateHud();
+}
+function drawShip(ctx){
+ var s=state.ship;ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.a);
+ ctx.shadowColor="#5edcff";ctx.shadowBlur=20;
+ ctx.fillStyle="#bfefff";ctx.strokeStyle="#eaffff";ctx.lineWidth=1.5;
+ ctx.beginPath();ctx.moveTo(20,0);ctx.lineTo(-12,-10);ctx.lineTo(-7,0);ctx.lineTo(-12,10);ctx.closePath();ctx.fill();ctx.stroke();
+ ctx.shadowBlur=0;ctx.fillStyle="#317a98";ctx.beginPath();ctx.moveTo(-4,-7);ctx.lineTo(-15,-14);ctx.lineTo(-10,-2);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(-4,7);ctx.lineTo(-15,14);ctx.lineTo(-10,2);ctx.closePath();ctx.fill();
+ ctx.fillStyle="#fff";ctx.shadowColor="#7df0ff";ctx.shadowBlur=12;ctx.beginPath();ctx.arc(7,0,4,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#49d8ff";ctx.globalAlpha=.75;ctx.beginPath();ctx.moveTo(-12,0);ctx.lineTo(-25,-4-Math.random()*4);ctx.lineTo(-25,4+Math.random()*4);ctx.closePath();ctx.fill();ctx.restore();
+}
+function draw(ctx,t){
+ var sx=state.shake?((Math.random()-.5)*state.shake):0,sy=state.shake?((Math.random()-.5)*state.shake):0;ctx.save();ctx.translate(sx,sy);
+ drawBackground(ctx,t);
+ state.blocks.forEach(function(b){if(!b.dead)drawBlock(ctx,b)});
+ var s=state.ship,b=state.blocks[s.target],q=b&&!b.dead?blockPos(b):null;
+ if(q){var d=Math.hypot(q.x-s.x,q.y-s.y);if(d<220){ctx.save();ctx.globalAlpha=Math.max(0,(220-d)/220)*.7;ctx.strokeStyle=TYPES[b.type].glow;ctx.shadowColor=TYPES[b.type].glow;ctx.shadowBlur=10;ctx.lineWidth=2;ctx.setLineDash([7,7]);ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(q.x,q.y);ctx.stroke();ctx.restore()}}
+ state.shots.forEach(function(x){ctx.save();ctx.globalAlpha=Math.max(0,x.life/.16);ctx.strokeStyle=x.color;ctx.shadowColor=x.color;ctx.shadowBlur=15;ctx.lineWidth=state.weapon==="lance"?3:5;ctx.beginPath();ctx.moveTo(x.x,x.y);ctx.lineTo(x.tx,x.ty);ctx.stroke();ctx.restore()});
+ state.particles.forEach(function(x){ctx.save();ctx.globalAlpha=Math.max(0,x.life/x.max);ctx.fillStyle=x.color;ctx.shadowColor=x.color;ctx.shadowBlur=8;ctx.fillRect(x.x-x.r,x.y-x.r,x.r*2,x.r*2);ctx.restore()});
+ drawShip(ctx);
+ state.texts.forEach(function(x){ctx.save();ctx.globalAlpha=Math.max(0,x.life/.75);ctx.fillStyle=x.color;ctx.font="900 11px system-ui";ctx.textAlign="center";ctx.shadowColor=x.color;ctx.shadowBlur=8;ctx.fillText(x.text,x.x,x.y);ctx.restore()});
+ ctx.restore();
+}
+function loop(now){
+ if(!state.running)return;
+ var dt=Math.min(.033,(now-state.lastTime)/1000||.016);state.lastTime=now;update(dt,now);draw(C.ctx,now);
+ requestAnimationFrame(loop);
+}
+function boot(){menu()}
+boot();
 })();
 </script>
 </body>
