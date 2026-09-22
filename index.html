@@ -24,7 +24,7 @@
 (function(){
 "use strict";
 var app=document.getElementById("app");
-var state={screen:"menu",planet:1,credits:0,mined:0,x:.5,y:.10,target:null,auto:true,damage:1,speed:1,magnet:1,blocks:[],lastMine:0};
+var state={screen:"menu",planet:1,credits:0,mined:0,x:.5,y:.10,target:null,auto:true,damage:1,speed:1,magnet:1,blocks:[],lastMine:0,lastFrame:performance.now(),vx:0,vy:0};
 var COLS=10,ROWS=20,runTimer=0;
 function makeBlocks(){
  var a=[];
@@ -64,7 +64,7 @@ function render(){
  var dragging=false;
  field.onpointerdown=function(e){dragging=true;field.setPointerCapture&&field.setPointerCapture(e.pointerId);move(e)};
  field.onpointermove=move;field.onpointerup=field.onpointercancel=function(){dragging=false};
- function move(e){if(!dragging)return;var r=field.getBoundingClientRect();state.x=Math.max(.08,Math.min(.92,(e.clientX-r.left)/r.width));state.y=Math.max(.02,Math.min(.90,(e.clientY-r.top)/r.height));place();}
+ function move(e){if(!dragging)return;var r=field.getBoundingClientRect(),tx=Math.max(.08,Math.min(.92,(e.clientX-r.left)/r.width)),ty=Math.max(.02,Math.min(.90,(e.clientY-r.top)/r.height));state.vx+=(tx-state.x)*.18;state.vy+=(ty-state.y)*.18;}
  document.getElementById("auto").onclick=function(){state.auto=!state.auto;render()};
  document.getElementById("boost").onclick=function(){mine(true)};
  document.getElementById("garage").onclick=garage;
@@ -81,8 +81,7 @@ function mine(manual){
  if(best<0)return;
  var b=state.blocks[best];
  state.target=best;
- state.x=Math.max(.08,Math.min(.92,(b.x+.5)/COLS));
- state.y=Math.max(.04,Math.min(.90,(b.y+.5)/ROWS));
+ state.vx+=(((b.x+.5)/COLS)-state.x)*.045;state.vy+=(((b.y+.5)/ROWS)-state.y)*.045;
  var gain=(b.special?25:b.rare?12:5)*state.magnet;
  b.hp-=state.damage;
  render();
